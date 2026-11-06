@@ -1,0 +1,208 @@
+---
+import { Image } from 'astro:assets';
+import clase from '../assets/fotos/clase.jpg';
+
+// REVISAR: estructura habitual de la ESO para personas adultas. Ajustar a la del programa real.
+const pasos = [
+  { t: 'Nos conocemos', d: 'Rellenas el formulario o nos llamas. Te contamos todo sin compromiso.' },
+  { t: 'Valoramos tu nivel', d: 'Revisamos lo que ya tienes aprobado y hacemos una prueba de nivel para situarte.' },
+  { t: 'Estudias por módulos', d: 'Dos niveles con dos módulos cada uno. Avanzas a tu ritmo, con tutoría semanal.' },
+  { t: 'Consigues tu título', d: 'Al superar los módulos obtienes el Graduado en ESO, oficial y con la misma validez.' },
+];
+
+const ambitos = [
+  { t: 'Comunicación', d: 'Lengua castellana, valenciano e inglés' },
+  { t: 'Social', d: 'Geografía, historia y ciudadanía' },
+  { t: 'Científico-tecnológico', d: 'Matemáticas, ciencias y tecnología' },
+];
+---
+
+<section class="section como" id="como-funciona">
+  <div class="wrap">
+    <div class="como__head">
+      <p class="eyebrow reveal">Cómo funciona</p>
+      <h2 class="reveal">Cuatro pasos.<br /><em>Uno detrás de otro.</em></h2>
+    </div>
+
+    <ol class="pasos">
+      {
+        pasos.map((p, i) => (
+          <li class="reveal" style={`transition-delay:${i * 90}ms`}>
+            <span class="pasos__n" aria-hidden="true">{i + 1}</span>
+            <h3>{p.t}</h3>
+            <p>{p.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="ambitos">
+      <div class="ambitos__photo reveal">
+        <Image src={clase} alt="Clase con personas adultas atendiendo al profesor" widths={[600, 1000]} sizes="(max-width: 860px) 92vw, 50vw" />
+      </div>
+      <div class="ambitos__copy reveal">
+        <h3>Lo que vas a estudiar</h3>
+        <p>Las asignaturas se agrupan en tres ámbitos. Menos dispersión, más sentido.</p>
+        <ul>
+          {
+            ambitos.map((a) => (
+              <li>
+                <strong>{a.t}</strong>
+                <span>{a.d}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .como {
+    background: var(--paper-2);
+  }
+
+  .como__head {
+    max-width: 760px;
+  }
+
+  .pasos {
+    list-style: none;
+    margin: clamp(48px, 6vw, 80px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .pasos li {
+    position: relative;
+    padding: 0 1.6rem 0 0;
+    margin-right: 1.6rem;
+  }
+
+  .pasos li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 3.6rem;
+    left: 5.2rem;
+    right: -1.6rem;
+    border-top: 2px dashed var(--plum);
+    opacity: 0.4;
+  }
+
+  .pasos__n {
+    display: block;
+    font: 500 7.5rem/1 var(--serif);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--plum);
+    margin-bottom: 1rem;
+  }
+
+  .pasos li:last-child .pasos__n {
+    color: var(--plum);
+    -webkit-text-stroke: 0;
+  }
+
+  .pasos h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .pasos p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  .ambitos {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+    margin-top: clamp(64px, 9vw, 120px);
+  }
+
+  .ambitos__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    border-radius: var(--radius) 160px var(--radius) var(--radius);
+  }
+
+  .ambitos h3 {
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .ambitos__copy > p {
+    color: var(--ink-soft);
+  }
+
+  .ambitos ul {
+    list-style: none;
+    margin: 1.6rem 0 0;
+    padding: 0;
+  }
+
+  .ambitos li {
+    display: flex;
+    flex-direction: column;
+    padding: 1.1rem 0 1.1rem 1.4rem;
+    border-left: 4px solid var(--teal);
+    margin-bottom: 0.8rem;
+    background: var(--paper);
+    border-radius: 0 14px 14px 0;
+  }
+
+  .ambitos li:nth-child(2) {
+    border-color: var(--coral);
+  }
+
+  .ambitos li:nth-child(3) {
+    border-color: var(--sun);
+  }
+
+  .ambitos strong {
+    font: 600 1.3rem/1.2 var(--serif);
+  }
+
+  .ambitos li span {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 960px) {
+    .pasos {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 2.5rem;
+    }
+    .pasos li::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .ambitos {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pasos {
+      grid-template-columns: 1fr;
+    }
+    .pasos li {
+      display: grid;
+      grid-template-columns: 4.4rem 1fr;
+      column-gap: 1rem;
+      margin-right: 0;
+      padding-right: 0;
+    }
+    .pasos__n {
+      font-size: 4.6rem;
+      grid-row: span 2;
+    }
+  }
+</style>

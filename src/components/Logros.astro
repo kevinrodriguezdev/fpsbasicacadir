@@ -1,0 +1,183 @@
+---
+import Mark from './Mark.astro';
+
+// REVISAR: cifras del programa (cursos, ratio, coste).
+const stats = [
+  { n: '2', u: 'cursos', d: 'para completar la etapa' },
+  { n: '15', u: 'personas', d: 'máximo por grupo' },
+  { n: '0', u: '€', d: 'matrícula y materiales' },
+];
+
+const puertas = [
+  'Grado Medio de Formación Profesional',
+  'Bachillerato',
+  'Oposiciones y bolsas de empleo público',
+  'Ofertas de trabajo que piden la ESO',
+  'Certificados de profesionalidad de nivel 2',
+];
+---
+
+<section class="section logros">
+  <div class="wrap">
+    <div class="logros__top">
+      <h2 class="reveal">Un título que te <em><Mark>abre puertas.</Mark></em></h2>
+      <p class="reveal">
+        El Graduado en ESO para personas adultas es el mismo título oficial que se obtiene en el instituto. Nadie va a
+        preguntarte cómo lo conseguiste.
+      </p>
+    </div>
+
+    <dl class="stats">
+      {
+        stats.map((s) => (
+          <div class="reveal">
+            <dt>
+              {s.n}
+              <small>{s.u}</small>
+            </dt>
+            <dd>{s.d}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="puertas reveal">
+      <p class="puertas__label">Con tu título puedes ir a</p>
+      <ul>
+        {puertas.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .logros {
+    background: var(--plum);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logros::before {
+    content: '';
+    position: absolute;
+    width: 620px;
+    aspect-ratio: 1;
+    right: -180px;
+    top: -220px;
+    border-radius: 50%;
+    border: 2px solid rgba(246, 241, 232, 0.14);
+    box-shadow:
+      0 0 0 60px rgba(246, 241, 232, 0.03),
+      0 0 0 120px rgba(246, 241, 232, 0.025);
+  }
+
+  .logros__top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: end;
+    position: relative;
+  }
+
+  .logros__top p {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    max-width: 40ch;
+  }
+
+  h2 em {
+    color: var(--sun);
+  }
+
+  .logros :global(.mark path) {
+    stroke: var(--sun);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: clamp(56px, 7vw, 96px) 0;
+    border-top: 1px solid rgba(246, 241, 232, 0.3);
+  }
+
+  .stats > div {
+    padding: 2rem 1.5rem 0 0;
+  }
+
+  .stats > div + div {
+    padding-left: 1.5rem;
+    border-left: 1px solid rgba(246, 241, 232, 0.3);
+  }
+
+  dt {
+    font: 400 clamp(4.5rem, 10vw, 8.5rem) / 0.9 var(--serif);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    letter-spacing: -0.04em;
+  }
+
+  dt small {
+    font-size: 0.3em;
+    font-style: italic;
+    letter-spacing: 0;
+    margin-left: 0.2em;
+    color: var(--sun);
+  }
+
+  dd {
+    margin: 0.8rem 0 0;
+    opacity: 0.8;
+  }
+
+  .puertas__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sun);
+  }
+
+  .puertas ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .puertas li {
+    padding: 0.7em 1.2em;
+    border: 1.5px solid rgba(246, 241, 232, 0.55);
+    border-radius: 999px;
+    font-size: 1.02rem;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  .puertas li:hover {
+    background: var(--paper);
+    color: var(--plum-deep);
+  }
+
+  @media (max-width: 860px) {
+    .logros__top {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .stats {
+      grid-template-columns: 1fr;
+    }
+    .stats > div,
+    .stats > div + div {
+      padding: 1.6rem 0;
+      border-left: 0;
+      border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    dd {
+      margin: 0;
+    }
+  }
+</style>

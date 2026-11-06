@@ -1,0 +1,147 @@
+---
+// REVISAR: respuestas orientativas. Confirmar requisitos, horarios y fechas del programa.
+const faqs = [
+  {
+    q: '¿Qué edad necesito?',
+    a: 'Tener 18 años o cumplirlos durante el año en que empiezas. En casos concretos, con 16 o 17 años y contrato de trabajo o deportista de alto rendimiento.',
+  },
+  {
+    q: '¿Cuánto cuesta?',
+    a: 'Nada. La formación y los materiales son gratuitos. Solo hay un proceso de selección previo para asignar las plazas.',
+  },
+  {
+    q: '¿Qué horario tiene?',
+    a: 'Hay grupo de mañana y grupo de tarde, para que puedas compaginarlo con tu trabajo o con el cuidado de tu familia.',
+  },
+  {
+    q: 'Dejé la ESO a medias. ¿Empiezo desde cero?',
+    a: 'No. Revisamos tu expediente y te convalidamos lo que ya tengas aprobado. Así entras directamente en el nivel que te corresponde.',
+  },
+  {
+    q: 'Tengo una discapacidad. ¿Puedo apuntarme?',
+    a: 'Por supuesto. Es parte de lo que hacemos en CADIR desde siempre: adaptamos materiales, tiempos y evaluaciones a cada persona.',
+  },
+  {
+    q: '¿El título es oficial?',
+    a: 'Sí. Es el Graduado en Educación Secundaria Obligatoria, con la misma validez que el que se obtiene en un instituto.',
+  },
+];
+---
+
+<section class="section faq" id="preguntas">
+  <div class="wrap faq__grid">
+    <div>
+      <p class="eyebrow reveal">Preguntas frecuentes</p>
+      <h2 class="reveal">Lo que <em>todo el mundo</em> pregunta.</h2>
+      <p class="faq__more reveal">
+        ¿Tienes otra duda? Llámanos al <a href="tel:+34960301644">960 301 644</a> o escribe a{" "}
+        <a href="mailto:cadir@cadir.es">cadir@cadir.es</a>.
+      </p>
+    </div>
+    <div class="faq__list">
+      {
+        faqs.map((f) => (
+          <details class="reveal">
+            <summary>
+              {f.q}
+              <span class="faq__icon" aria-hidden="true" />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 6vw, 100px);
+  }
+
+  h2 em {
+    color: var(--plum);
+  }
+
+  .faq__more {
+    margin-top: 1.6rem;
+    color: var(--ink-soft);
+    max-width: 34ch;
+  }
+
+  .faq__more a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration-color: var(--coral);
+    text-underline-offset: 3px;
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--ink);
+  }
+
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    font: 500 clamp(1.2rem, 1.8vw, 1.5rem) / 1.25 var(--serif);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__icon {
+    flex: none;
+    position: relative;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    transition: background 0.25s, rotate 0.3s;
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 1.5px;
+    background: currentColor;
+    translate: -50% -50%;
+  }
+
+  .faq__icon::after {
+    rotate: 90deg;
+  }
+
+  details[open] .faq__icon {
+    background: var(--sun);
+    rotate: 45deg;
+  }
+
+  details p {
+    color: var(--ink-soft);
+    max-width: 56ch;
+    padding-bottom: 1.4rem;
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .faq__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

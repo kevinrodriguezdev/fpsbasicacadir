@@ -1,0 +1,343 @@
+---
+import Mark from './Mark.astro';
+---
+
+<section class="section form" id="inscripcion">
+  <div class="wrap form__grid">
+    <div class="form__intro">
+      <p class="eyebrow reveal">Inscripción</p>
+      <h2 class="reveal">El primer paso es <em><Mark>este.</Mark></em></h2>
+      <p class="reveal">
+        Déjanos tus datos y te llamamos en menos de 48 horas para resolver tus dudas. Sin compromiso y sin papeleo de
+        momento.
+      </p>
+      <ul class="form__contact reveal">
+        <li><span>Teléfono</span><a href="tel:+34960301644">960 301 644</a></li>
+        <li><span>Email</span><a href="mailto:cadir@cadir.es">cadir@cadir.es</a></li>
+        <li><span>Horario</span>L–V, 9:00 a 14:00</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
+      <form id="solicitud" novalidate>
+        <div class="row">
+          <label class="field">
+            <span>Nombre y apellidos</span>
+            <input name="nombre" autocomplete="name" required />
+            <small class="err">Escribe tu nombre.</small>
+          </label>
+        </div>
+        <div class="row row--2">
+          <label class="field">
+            <span>Teléfono</span>
+            <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9 +]{9,15}" required />
+            <small class="err">Necesitamos un teléfono válido.</small>
+          </label>
+          <label class="field">
+            <span>Email <i>(opcional)</i></span>
+            <input name="email" type="email" autocomplete="email" />
+            <small class="err">Revisa el email.</small>
+          </label>
+        </div>
+        <div class="row row--2">
+          <label class="field">
+            <span>Edad</span>
+            <input name="edad" type="number" min="16" max="99" inputmode="numeric" required />
+            <small class="err">Indica tu edad (16 o más).</small>
+          </label>
+          <label class="field">
+            <span>Último curso terminado</span>
+            <select name="curso" required>
+              <option value="">Elige una opción</option>
+              <option>Primaria</option>
+              <option>1º de ESO</option>
+              <option>2º de ESO</option>
+              <option>3º de ESO</option>
+              <option>4º de ESO sin título</option>
+              <option>No lo sé</option>
+            </select>
+            <small class="err">Elige una opción.</small>
+          </label>
+        </div>
+        <fieldset class="field">
+          <legend>¿Qué horario te va mejor?</legend>
+          <div class="chips">
+            <label><input type="radio" name="horario" value="manana" checked /><span>Mañana</span></label>
+            <label><input type="radio" name="horario" value="tarde" /><span>Tarde</span></label>
+            <label><input type="radio" name="horario" value="indiferente" /><span>Me da igual</span></label>
+          </div>
+        </fieldset>
+        <label class="check field">
+          <input type="checkbox" name="privacidad" required />
+          <span>Acepto que CADIR use mis datos solo para contactarme sobre este programa.</span>
+          <small class="err">Necesitamos tu permiso para llamarte.</small>
+        </label>
+        <button class="btn" type="submit">
+          Enviar solicitud
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"
+            ><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+          >
+        </button>
+      </form>
+
+      <div class="done" id="solicitud-ok" hidden tabindex="-1">
+        <p class="done__big">¡Hecho!</p>
+        <p>Hemos recibido tu solicitud. Te llamaremos muy pronto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('solicitud') as HTMLFormElement;
+  const done = document.getElementById('solicitud-ok') as HTMLElement;
+
+  const check = (el: HTMLInputElement | HTMLSelectElement) => {
+    const field = el.closest('.field');
+    const ok = el.checkValidity() && !(el.name === 'edad' && Number(el.value) < 16);
+    field?.classList.toggle('is-bad', !ok);
+    el.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  };
+
+  form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input, select').forEach((el) => {
+    el.addEventListener('blur', () => el.value && check(el));
+    el.addEventListener('input', () => el.closest('.is-bad') && check(el));
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const els = [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input:not([type=radio]), select')];
+    const bad = els.filter((el) => !check(el));
+    if (bad.length) {
+      bad[0].focus();
+      return;
+    }
+    // TODO: connect backend (Web3Forms, Formspree or a Vercel function) to send the request.
+    form.hidden = true;
+    done.hidden = false;
+    done.focus();
+  });
+</script>
+
+<style>
+  .form {
+    background: var(--plum-deep);
+    color: var(--paper);
+  }
+
+  .form__grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: start;
+  }
+
+  .form .eyebrow {
+    color: var(--sun);
+  }
+
+  h2 em {
+    color: var(--sun);
+  }
+
+  .form :global(.mark path) {
+    stroke: var(--coral);
+  }
+
+  .form__intro > p:not(.eyebrow) {
+    margin-top: 1.4rem;
+    opacity: 0.85;
+    max-width: 38ch;
+  }
+
+  .form__contact {
+    list-style: none;
+    margin: 2.4rem 0 0;
+    padding: 0;
+  }
+
+  .form__contact li {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    padding-block: 0.8rem;
+    border-top: 1px solid rgba(246, 241, 232, 0.2);
+  }
+
+  .form__contact span {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    align-self: center;
+  }
+
+  .form__contact a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .card {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: var(--radius);
+    padding: clamp(24px, 4vw, 48px);
+    box-shadow: 12px 12px 0 var(--coral);
+  }
+
+  .row {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .row--2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+    border: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .field > span,
+  legend {
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0;
+  }
+
+  .field i {
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+
+  input:not([type='radio'], [type='checkbox']),
+  select {
+    font: inherit;
+    width: 100%;
+    padding: 0.85em 1em;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--plum);
+    box-shadow: 0 0 0 4px rgba(85, 63, 128, 0.15);
+  }
+
+  .err {
+    display: none;
+    color: #b3261e;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .is-bad .err {
+    display: block;
+  }
+
+  .is-bad input,
+  .is-bad select {
+    border-color: #b3261e;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .chips label {
+    position: relative;
+  }
+
+  .chips input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .chips span {
+    display: inline-block;
+    padding: 0.55em 1.1em;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .chips input:checked + span {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .chips input:focus-visible + span {
+    outline: 3px solid var(--coral);
+    outline-offset: 2px;
+  }
+
+  .check {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.7rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  .check input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.2rem;
+    accent-color: var(--plum);
+  }
+
+  .check .err {
+    grid-column: 2;
+  }
+
+  .card .btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.4rem;
+  }
+
+  .done {
+    text-align: center;
+    padding-block: 3rem;
+    outline: none;
+  }
+
+  .done__big {
+    font: italic 400 clamp(3rem, 6vw, 4.6rem) / 1 var(--serif);
+    color: var(--plum);
+  }
+
+  @media (max-width: 860px) {
+    .form__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .row--2 {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .card {
+      box-shadow: 6px 6px 0 var(--coral);
+    }
+  }
+</style>

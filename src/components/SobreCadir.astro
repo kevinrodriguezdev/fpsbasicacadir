@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import tutor from '../assets/fotos/tutor.jpg';
+---
+
+<section class="section cadir" id="cadir">
+  <div class="wrap cadir__grid">
+    <div class="cadir__copy">
+      <p class="eyebrow reveal">Quiénes somos</p>
+      <h2 class="reveal">Capacidades <em>diferentes</em> y responsables.</h2>
+      <p class="reveal">
+        CADIR es una asociación sin ánimo de lucro de Valencia que trabaja por la inclusión social y laboral. Somos agencia
+        de colocación autorizada y llevamos años formando a jóvenes y adultos, con especial atención a las personas con
+        discapacidad.
+      </p>
+      <p class="reveal">
+        Sabemos que estudiar de adulto no es fácil. Por eso no damos solo clases: orientamos, acompañamos y, cuando
+        terminas, te ayudamos a dar el siguiente paso hacia el empleo.
+      </p>
+      <a class="cadir__link reveal" href="https://www.cadir.es/" target="_blank" rel="noopener">
+        Conoce más en cadir.es
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"
+          ><path d="M7 17 17 7M8 7h9v9"></path></svg
+        >
+      </a>
+    </div>
+    <div class="cadir__photo reveal">
+      <Image src={tutor} alt="Tutor ayudando a una alumna con sus apuntes" widths={[600, 1000]} sizes="(max-width: 860px) 92vw, 46vw" />
+      <ul class="cadir__tags" aria-label="Lo que ofrecemos">
+        <li>Orientación</li>
+        <li>Tutoría</li>
+        <li>Inserción laboral</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cadir__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: center;
+  }
+
+  h2 {
+    margin-bottom: 1.6rem;
+  }
+
+  h2 em {
+    color: var(--teal);
+  }
+
+  .cadir__copy > p:not(.eyebrow) {
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+
+  .cadir__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 2px;
+    margin-top: 0.6rem;
+  }
+
+  .cadir__link svg {
+    width: 1em;
+    height: 1em;
+    transition: transform 0.25s;
+  }
+
+  .cadir__link:hover svg {
+    transform: translate(3px, -3px);
+  }
+
+  .cadir__photo {
+    position: relative;
+  }
+
+  .cadir__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 55% 50%;
+    border-radius: var(--radius);
+  }
+
+  .cadir__tags {
+    position: absolute;
+    left: -1.5rem;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cadir__tags li {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.45em 1em;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  .cadir__tags li:nth-child(2) {
+    margin-left: 1.6rem;
+    background: var(--sun);
+  }
+
+  .cadir__tags li:nth-child(3) {
+    margin-left: 0.6rem;
+  }
+
+  @media (max-width: 860px) {
+    .cadir__grid {
+      grid-template-columns: 1fr;
+    }
+    .cadir__tags {
+      left: 0.8rem;
+    }
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot__big">Nunca es tarde para <em>tu título.</em></p>
+
+    <div class="foot__grid">
+      <div>
+        <img src="/logo-cadir.png" alt="CADIR" width="842" height="340" class="foot__logo" />
+        <p>Asociación Capacidades Diferentes y Responsables</p>
+      </div>
+      <div>
+        <h3>Dónde estamos</h3>
+        <p>
+          <a href="https://maps.google.com/?q=Calle+Menendez+y+Pelayo+3,+46010+Valencia" target="_blank" rel="noopener"
+            >C/ Menéndez y Pelayo 3-5, bajo<br />46010 Valencia</a
+          >
+        </p>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <p>
+          <a href="tel:+34960301644">960 301 644</a><br />
+          <a href="mailto:cadir@cadir.es">cadir@cadir.es</a><br />
+          L–V, 9:00 a 14:00
+        </p>
+      </div>
+      <div>
+        <h3>Síguenos</h3>
+        <p>
+          <a href="https://www.facebook.com/Asociaci%C3%B3n-Cadir-110663751454701" target="_blank" rel="noopener">Facebook</a><br />
+          <a href="https://www.cadir.es/" target="_blank" rel="noopener">cadir.es</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="foot__legal">
+      <p>© {year} Asociación CADIR</p>
+      <p>Fotografías: Unsplash (Centre for Ageing Better, Monica Melton, Vitaly Gariev, Jud Mackrill, Gabriel Ogulu)</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(64px, 9vw, 120px) 2rem;
+  }
+
+  .foot .foot__big {
+    font: 400 clamp(2.6rem, 8vw, 7rem) / 0.95 var(--serif);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    letter-spacing: -0.03em;
+    margin-bottom: clamp(48px, 7vw, 96px);
+    max-width: 14ch;
+  }
+
+  .foot__big em {
+    color: var(--sun);
+  }
+
+  .foot__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 2rem;
+    padding-block: 2.5rem;
+    border-top: 1px solid rgba(246, 241, 232, 0.2);
+  }
+
+  .foot__logo {
+    width: 130px;
+    height: auto;
+    filter: brightness(0) invert(0.95);
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font: 700 0.75rem/1 var(--sans);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sun);
+    margin-bottom: 1rem;
+  }
+
+  .foot__grid p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  .foot a {
+    text-decoration: none;
+  }
+
+  .foot a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--coral);
+  }
+
+  .foot__legal {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(246, 241, 232, 0.2);
+  }
+
+  .foot__legal p {
+    font-size: 0.8rem;
+    opacity: 0.55;
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .foot__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .foot__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+// Hand-drawn underline or circle around a word. Draws itself in on scroll.
+interface Props {
+  kind?: 'under' | 'circle';
+}
+
+const { kind = 'under' } = Astro.props;
+---
+
+<span class={`mark mark--${kind}`}>
+  <slot />
+  {
+    kind === 'under' ? (
+      <svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d="M3 14 C 60 4, 120 3, 180 8 S 270 16, 297 6" />
+      </svg>
+    ) : (
+      <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          pathLength="1"
+          d="M210 10 C 120 0, 20 20, 8 60 C 0 100, 120 116, 220 104 C 300 94, 302 30, 230 16 C 190 8, 150 12, 120 20"
+        />
+      </svg>
+    )
+  }
+</span>

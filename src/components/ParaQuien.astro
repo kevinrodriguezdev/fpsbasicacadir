@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import Mark from './Mark.astro';
+import senior from '../assets/fotos/senior.jpg';
+import hombre from '../assets/fotos/hombre.jpg';
+
+const perfiles = [
+  {
+    t: 'Dejaste el instituto antes de tiempo',
+    d: 'Por trabajo, por familia o porque no era tu momento. Retomamos desde donde lo dejaste.',
+  },
+  {
+    t: 'Te piden la ESO para un trabajo',
+    d: 'Muchas ofertas, oposiciones y certificados la exigen. Es la llave que te falta.',
+  },
+  {
+    t: 'Quieres seguir estudiando',
+    d: 'Con el Graduado puedes acceder a un Grado Medio de FP y abrir camino hacia lo que te gusta.',
+  },
+  {
+    t: 'Necesitas un apoyo diferente',
+    d: 'Si tienes discapacidad o necesidades específicas, adaptamos materiales, ritmo y evaluación.',
+  },
+];
+---
+
+<section class="section quien" id="para-quien">
+  <div class="wrap quien__grid">
+    <div class="quien__head">
+      <p class="eyebrow reveal">Para quién es</p>
+      <h2 class="reveal">Para cualquiera que <em>se lo <Mark kind="circle">merezca.</Mark></em></h2>
+      <p class="quien__sub reveal">Es decir, para ti. Si tienes 18 años o más y no tienes el título, este es tu sitio.</p>
+      <div class="quien__photos reveal" aria-hidden="true">
+        <Image src={senior} alt="" widths={[300, 560]} sizes="(max-width: 860px) 45vw, 18vw" class="ph ph--a" />
+        <Image src={hombre} alt="" widths={[300, 560]} sizes="(max-width: 860px) 45vw, 18vw" class="ph ph--b" />
+      </div>
+    </div>
+
+    <ol class="quien__list">
+      {
+        perfiles.map((p, i) => (
+          <li class="reveal">
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .quien__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(40px, 6vw, 100px);
+  }
+
+  .quien__head {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+  }
+
+  .quien__sub {
+    margin-top: 1.4rem;
+    max-width: 32ch;
+    color: var(--ink-soft);
+    font-size: 1.12rem;
+  }
+
+  .quien__photos {
+    position: relative;
+    height: 300px;
+    margin-top: 2.5rem;
+  }
+
+  .quien__photos :global(.ph) {
+    position: absolute;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .quien__photos :global(.ph--a) {
+    width: 46%;
+    height: 280px;
+    left: 0;
+    top: 0;
+    rotate: -4deg;
+    border-radius: 999px 999px var(--radius) var(--radius);
+  }
+
+  .quien__photos :global(.ph--b) {
+    width: 52%;
+    height: 210px;
+    left: 40%;
+    top: 70px;
+    rotate: 3deg;
+    border: 6px solid var(--paper);
+  }
+
+  .quien__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .quien__list li {
+    display: grid;
+    grid-template-columns: 5.2rem 1fr;
+    gap: 1rem;
+    padding-block: 2.2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .num {
+    font: italic 300 3.4rem/0.9 var(--serif);
+    color: var(--coral);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .quien__list p {
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  @media (max-width: 860px) {
+    .quien__grid {
+      grid-template-columns: 1fr;
+    }
+    .quien__head {
+      position: static;
+    }
+    .quien__photos {
+      height: 240px;
+    }
+    .quien__photos :global(.ph--a) {
+      height: 220px;
+    }
+    .quien__photos :global(.ph--b) {
+      height: 170px;
+      top: 60px;
+    }
+    .quien__list li {
+      grid-template-columns: 3.6rem 1fr;
+    }
+    .num {
+      font-size: 2.4rem;
+    }
+  }
+</style>

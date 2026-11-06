@@ -1,0 +1,71 @@
+---
+const items = [
+  'Graduado en ESO',
+  'Horario compatible con tu trabajo',
+  'Grupos reducidos',
+  'Tutoría personal',
+  'Adaptaciones para cada persona',
+  'Sin coste',
+];
+---
+
+<div class="marquee" aria-label={items.join(', ')}>
+  <div class="marquee__track" aria-hidden="true">
+    {
+      [0, 1].map(() => (
+        <ul>
+          {items.map((t) => (
+            <li>{t}</li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: var(--plum-deep);
+    color: var(--paper);
+    overflow: hidden;
+    padding-block: 1.3rem;
+    rotate: -1.2deg;
+    margin-inline: -2vw;
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: slide 38s linear infinite;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    font: italic 400 clamp(1.4rem, 2.6vw, 2.2rem) / 1 var(--serif);
+    white-space: nowrap;
+    padding-inline: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 2.8rem;
+  }
+
+  li::after {
+    content: '✶';
+    font-family: var(--serif);
+    font-style: normal;
+    color: var(--sun);
+    font-size: 0.8em;
+  }
+
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

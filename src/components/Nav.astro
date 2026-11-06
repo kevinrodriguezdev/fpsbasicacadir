@@ -1,0 +1,87 @@
+---
+const links = [
+  { href: '#para-quien', label: 'Para quién' },
+  { href: '#como-funciona', label: 'Cómo funciona' },
+  { href: '#cadir', label: 'CADIR' },
+  { href: '#preguntas', label: 'Preguntas' },
+];
+---
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#top" class="nav__logo" aria-label="CADIR, inicio">
+      <img src="/logo-cadir.png" alt="CADIR · Capacidades diferentes y responsables" width="842" height="340" />
+    </a>
+    <nav aria-label="Principal">
+      <ul class="nav__links">
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <a href="#inscripcion" class="btn nav__cta">Infórmate</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 76px;
+  }
+
+  .nav__logo img {
+    height: 46px;
+    width: auto;
+  }
+
+  nav {
+    margin-left: auto;
+  }
+
+  .nav__links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__links a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    background: linear-gradient(var(--coral), var(--coral)) 0 100% / 0 2px no-repeat;
+    transition: background-size 0.3s ease;
+  }
+
+  .nav__links a:hover {
+    background-size: 100% 2px;
+  }
+
+  .nav__cta {
+    padding: 0.8em 1.3em;
+  }
+
+  @media (max-width: 860px) {
+    nav {
+      display: none;
+    }
+    .nav__cta {
+      margin-left: auto;
+    }
+    .nav__inner {
+      height: 64px;
+    }
+    .nav__logo img {
+      height: 38px;
+    }
+  }
+</style>

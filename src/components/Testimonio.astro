@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import sonrisa from '../assets/fotos/sonrisa.jpg';
+---
+
+<!-- REVISAR: testimonio de ejemplo. Sustituir por uno real con permiso de la persona. -->
+<section class="section testi">
+  <div class="wrap testi__grid">
+    <div class="testi__photo reveal">
+      <Image src={sonrisa} alt="Alumna sonriendo" widths={[400, 720]} sizes="(max-width: 860px) 70vw, 32vw" />
+    </div>
+    <blockquote class="reveal">
+      <p>
+        Llevaba quince años diciendo «el año que viene». Aquí nadie me miró raro por tener 34 y volver a hacer ecuaciones.{" "}
+        <em>Ahora tengo mi título y estoy en un Grado Medio.</em>
+      </p>
+      <footer>
+        <strong>Lucía M.</strong>
+        <span>Antigua alumna · Valencia</span>
+      </footer>
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  .testi__grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(32px, 6vw, 100px);
+    align-items: center;
+  }
+
+  .testi__photo {
+    position: relative;
+  }
+
+  .testi__photo::before {
+    content: '';
+    position: absolute;
+    inset: 8% -6% -6% 8%;
+    background: var(--teal);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .testi__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: 50% 30%;
+    border-radius: 50%;
+  }
+
+  blockquote {
+    margin: 0;
+    position: relative;
+  }
+
+  blockquote::before {
+    content: '“';
+    position: absolute;
+    top: -0.35em;
+    left: -0.08em;
+    font: 400 12rem/1 var(--serif);
+    color: var(--coral);
+    opacity: 0.9;
+  }
+
+  blockquote p {
+    font: 400 clamp(1.6rem, 3vw, 2.6rem) / 1.22 var(--serif);
+    letter-spacing: -0.01em;
+    padding-top: 3.6rem;
+  }
+
+  blockquote em {
+    color: var(--plum);
+  }
+
+  blockquote footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.2rem;
+  }
+
+  blockquote footer span {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 860px) {
+    .testi__grid {
+      grid-template-columns: 1fr;
+    }
+    .testi__photo {
+      max-width: 300px;
+    }
+  }
+</style>
